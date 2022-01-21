@@ -1,0 +1,16 @@
+---
+title: "Devin Ngo"
+image: "devin.jpg"
+links:
+  - label: LinkedIn
+    url: "https://www.linkedin.com/in/devin-ngo-7306491b0/"
+  - label: GitHub
+    url: "https://github.com/devin-ngo"
+  - label: Email
+    url: "mailto:devinngo@ucsb.edu"
+site: distill::distill_website
+output:
+  postcards::trestles
+---
+ 
+I am a Master's Candidate at the UCSB Bren School Environmental Science and Management. I am interested in Energy and Climate, and currently reside in the San Francisco Bay Area. I love talking about music, movies and baseball.
