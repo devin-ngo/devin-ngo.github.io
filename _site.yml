@@ -2,6 +2,7 @@ name: "."
 title: "mfeo"
 description: |
   mfeo
+output_dir: "."
 output_dir: "docs"
 navbar:
   right:
