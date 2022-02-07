@@ -1,6 +1,6 @@
 ---
 title: "Devin Ngo"
-image: "devin.jpg"
+image: "bren_headshot.jpg"
 links:
   - label: LinkedIn
     url: "https://www.linkedin.com/in/devin-ngo-7306491b0/"
@@ -13,4 +13,4 @@ output:
   postcards::trestles
 ---
  
-I am a Master's Candidate at the UCSB Bren School Environmental Science and Management. I am interested in Energy and Climate, and currently reside in the San Francisco Bay Area. I love talking about music, movies and baseball.
+I am a Master's Candidate at the UCSB Bren School Environmental Science and Management. I am planning to specialize in Energy and Climate, and reside in the San Francisco Bay Area. Currently, I am seeking opportunities in the summer to explore my interests in climate and energy-related fields. In my free time, I enjoy listening to music on my record player, watching movies, and rooting for my local sport teams. This website is a project from my data analysis class and I am looking forward to taking the next step in advancing my skills. 

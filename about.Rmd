@@ -1,10 +1,13 @@
 ---
-title: "About this site"
+title: "About Me"
 description: |
-  Some additional details about the website
+  An introduction to who I am and what my interests are
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+I am am a first-year Master's candidate at the UCSB Bren School of Environmental Science and Management. I graduated from the University of California, Santa Barbara in 2020 with a Bachelor of Science in Environmental Studies. My outside concentration was focused on Climate Change. At Bren, my interests are in the area of Energy and Climate. I am also interested incorporating environmental justice in the work I do to address the disproportionate effects disadvantaged communities face from environmental impacts.
+
+In terms of past experience in the environmental field, I interned for the City of Sunnyvale’s Environmental Services Department in the summer of 2019. I revamped the Sunnyvale Water Pollution Control Plant’s Operations and Maintenance Manuals, migrating them to the digital platform, Confluence. Additionally, I spent the summer of 2021 as an intern under the U.S. Department of Energy’s Clean Cities University Workforce Development Program. With Silicon Valley Clean Cities Coalition, I worked on organizing events and initiatives that implemented and increased the awareness of alternative fuels and fuel-saving technologies. 

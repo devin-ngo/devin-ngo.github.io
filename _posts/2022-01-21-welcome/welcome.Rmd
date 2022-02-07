@@ -1,22 +1,17 @@
 ---
-title: "welcome"
+title: "Welcome"
 description: |
-  A short description of the post.
+  Welcome to my personal website! 
 author:
   - name: Devin Ngo
-date: 2022-01-21
+date: 2022-02-06
 output:
   distill::distill_article:
     self_contained: false
 ---
-
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-Distill is a publication format for scientific and technical writing, native to the web.
-
-Learn more about using Distill at <https://rstudio.github.io/distill>.
-
+Welcome to my personal website where I will be tracking the progress I make entering the world of data science! I first began learning R in my first quarter of graduate school at UCSB Bren School of Environmental Science and Management, through a course on data analysis. I am currently taking another course this quarter to further advance my skills in data anlaysis and using R. (To add more later...)
 

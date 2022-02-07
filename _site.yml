@@ -1,5 +1,5 @@
 name: "."
-title: "mfeo"
+title: "Devin Ngo's Personal Site"
 description: |
   mfeo
 output_dir: "docs"
@@ -7,7 +7,7 @@ navbar:
   right:
     - text: "Home"
       href: index.html
-    - text: "About"
+    - text: "About Me"
       href: about.html
     - text: "Blog"
       href: blog.html

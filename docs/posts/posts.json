@@ -1,19 +1,19 @@
 [
   {
     "path": "posts/2022-01-21-welcome/",
-    "title": "welcome",
-    "description": "A short description of the post.",
+    "title": "Welcome",
+    "description": "Welcome to my personal website!",
     "author": [
       {
         "name": "Devin Ngo",
         "url": {}
       }
     ],
-    "date": "2022-01-21",
+    "date": "2022-02-06",
     "categories": [],
-    "contents": "\nDistill is a publication format for scientific and technical writing, native to the web.\nLearn more about using Distill at https://rstudio.github.io/distill.\n\n\n\n",
+    "contents": "\nWelcome to my personal website where I will be tracking the progress I make entering the world of data science! I first began learning R in my first quarter of graduate school at UCSB Bren School of Environmental Science and Management, through a course on data analysis. I am currently taking another course this quarter to further advance my skills in data anlaysis and using R. (To add more later…)\n\n\n\n",
     "preview": {},
-    "last_modified": "2022-01-21T14:25:41-08:00",
+    "last_modified": "2022-02-06T22:33:57-08:00",
     "input_file": {}
   }
 ]
