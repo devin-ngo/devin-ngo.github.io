@@ -1,7 +1,7 @@
 ---
-title: "Project: Snowshoe Hares"
+title: "Linear Regression Exploration"
 description: |
-  An assignment from my data analysis class on juvenile snowshoe hares
+ Using linear regression analysis to explore and compare juvenile snowshoe hare variables 
 author:
   - name: Devin Ngo
     url: {}

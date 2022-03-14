@@ -1,0 +1,51 @@
+---
+title: "Data Visualization Practice"
+description: |
+  Practicing data visualization skills through adding text and other descriptive elements to a graph of Mono Lake Levels
+author:
+  - name: Devin Ngo
+    url: {}
+date: 2022-03-13
+output:
+  distill::distill_article:
+    self_contained: false
+    code_folding: Show Code
+---
+## Setup 
+
+```{r setup, include=FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+
+# Attach packages
+library(tidyverse)
+library(here)
+library(janitor)
+```
+
+```{r}
+# Read in Mono Lake data
+mono_lake <- read_csv(here("_posts", "2022-03-13-lake","data", "mono_lake_annual_levels.csv"), skip = 5) %>% 
+  clean_names()
+```
+
+## Visualizing Mono Lake Levels
+
+```{r}
+# Create the most perfect, useful finalized data visualization  
+ggplot(data = mono_lake) +
+  geom_line(aes(x = year, y = lake_level_feet_above_sea_level), color = "lightskyblue3") +
+  labs(x = "Year",
+       y = "Feet Above Sea Level") +
+  theme_minimal() +
+  annotate("text", x = 1930, y = 6410, label = "1941: Los Angeles Department of Water \n & Power began diverting water", size = 2, color = "black") +
+  geom_segment(aes(x=1850,xend=2017,y=6392,yend=6392), color = "palegreen3") +
+  annotate("text", x = 2000, y = 6393, label = "Stable Level: 6392 Feet", size = 2, color = "palegreen3") +
+  annotate("rect", xmin = 1850, xmax = 2017, ymin = 6360, ymax = 6392, alpha = .2, fill = "rosybrown1") +
+  annotate("text", x = 2000, y = 6388, label = "1980s: Eight lawsuits successfully challenged \n DWP's water diversions", size = 2, color = "black") +
+  geom_segment(aes(x=1850,xend=2017,y=6377,yend=6377), color = "tomato3") +
+  annotate("text", x = 1875, y = 6378, label = "Land bridges emerge: 6377 Feet", size = 2, color = "tomato3")+
+  geom_segment(aes(x=1850,xend=2017,y=6360,yend=6360), color = "chocolate1") +
+  annotate("text", x = 1875, y = 6361, label = "Decrease in brine shrimp availability: 6360 Feet", size = 2, color = "chocolate1")
+```
+
+***Figure 1. The change in Mono Lake levels (feet above sea level) from 1850 to 2017.** The green line represents the stable level of 6392 feet above sea level set by Decision 1631 in 1994. This level was chosen to reduce the lake's salinity, improve air quality by covering the exposed dry lakebed, and protect California Gull nesting islets from predators. The lightly red shaded area indicates the sea levels below this stable level. The red line at 6377 feet above sea level indicates when land bridges emerge between the mainland and islands, leading to predators accessing major bird nesting sites. The orange line at the bottom at 6360 feet above sea level represents when salinity is at 120 g/L, leading to a decrease in brine shrimp availability and thus affecting the birds that feed on them. Data: Mono Basin Clearinghouse (2017).*

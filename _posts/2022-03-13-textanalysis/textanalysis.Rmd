@@ -1,0 +1,115 @@
+---
+title: "Text Wrangling and Sentiment Analysis"
+description: |
+   Performing text analysis to observe the most common used words in an article and the most sentiment of the words in the article. 
+author:
+  - name: Devin Ngo
+    url: {}
+date: 2022-03-13
+output:
+  distill::distill_article:
+    self_contained: false
+    code_folding: Show Code
+---
+## Overview
+
+#### Summary 
+
+In 2018, Michelle Zauner wrote an essay for the New Yorker about her connections with the Korean supermarket, H Mart, to her late mother. This piece later turned into a full-book that debuted on the The New York Times nonfiction best-seller list. Text analysis will be performed on the original New Yorker article to find the most common words in this article to be put into a word cloud. Furthermore, sentiment analysis will be done on the text using the NRC Emotion Lexicon. The NRC Emotion Lexicon is a list that associates English words to two sentiments (negative and positive) and eight basic emotions (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust). 
+
+![*Crying in H Mart, 2018.* Illustration by Andrea Mongia](hmart.jpg){width=80%}
+
+#### Citation
+Zauner, M. (2018, August 20). Crying in H Mart. The New Yorker. Retrieved March 6, 2022, from https://www.newyorker.com/culture/culture-desk/crying-in-h-mart 
+
+## Setup
+```{r setup, include = TRUE, message = FALSE, warning = FALSE, class.source = 'fold-show'}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+library(tidyverse)
+library(tidytext)
+library(textdata)
+library(pdftools)
+library(ggwordcloud)
+library(here)
+```
+
+```{r class.source = 'fold-show'}
+# Reading in text
+hmart_text <- pdf_text(here("_posts", "2022-03-13-textanalysis", "data", "crying_in_hmart.pdf"))
+```
+
+## Text Wrangling
+
+```{r class.source = 'fold-show'}
+# Breaking text down into pages and lines
+hmart_lines <- data.frame(hmart_text) %>% 
+  mutate(page = 1:n()) %>% 
+  mutate(full_text = str_split(hmart_text, pattern = '\\n')) %>% 
+  unnest(full_text) %>% 
+  mutate(full_text = str_squish(full_text))
+```
+
+```{r class.source = 'fold-show'}
+# Getting word counts and wrangling to eliminate stop words
+hmart_words <- hmart_lines %>% 
+  unnest_tokens(word, full_text, token = 'words') %>% 
+  select(-hmart_text) 
+
+hmart_wordcount <- hmart_words %>% 
+  count(word) 
+
+hmart_words_clean <- hmart_words %>%
+  anti_join(stop_words, by = "word") 
+  
+nonstop_counts <- hmart_words_clean %>% 
+  count(word)
+```
+
+## Word Cloud
+
+```{r}
+# Creating a word cloud of the most frequent 100 words
+hmart_top100 <- nonstop_counts %>% 
+  arrange(-n) %>% 
+  slice(1:100)
+
+hmart_cloud <- ggplot(data = hmart_top100, aes(label = word)) +
+  geom_text_wordcloud(aes(color = n, size = n), shape = 'diamond') +
+  scale_size_area(max_size = 6) +
+  scale_colour_gradientn(colors = c('lightblue3', 'lightblue4', 'midnightblue'))
+
+hmart_cloud
+```
+
+**Takeaways:**
+
+- The most common word found in the article was "Korean", showing the emphasis on Korean culture linked between Zauner's Korean mother, Korean food, and the Korean supermarket, H Mart
+- A lot of the words repeating were associated with food including "food" itself as well as "noodles", "rice", "pork", "banchan", and "eating"
+- Other repeating words included "mom" and "mother", given the subject matter of her article. "Family", "country", and "asian" are a few of the common words that also indicate how this article deals with Zauner's identity and culture 
+
+## Sentiment Analysis 
+
+```{r}
+hmart_nrc <- hmart_words_clean %>% 
+  inner_join(get_sentiments('nrc'))
+
+hmart_nrc_counts <- hmart_nrc %>% 
+  count(sentiment) %>% 
+  arrange(-n) 
+
+ggplot(hmart_nrc_counts, 
+       aes(x = fct_reorder(sentiment, n), y = n, fill = n)) +
+  geom_col() +
+  coord_flip() +
+  scale_fill_gradientn(colors = c("pink", "pink1", "pink2")) + 
+  theme_minimal() +
+  theme(legend.position = "none") +
+  labs(x = "Sentiment", y = "Count")
+```
+
+**Takeaways:**
+
+- Despite the article dealing with grief, there were more counts of words with positive associations than negative. This possibly correlates with Zauner's fond memories of her mother being more present in the article rather than discussing her mother's death
+- Words associated with trust, joy, and anticipation also correlate to Zauner's relationship with her mother 
+- Words with negative associations, along with those that are associated with sadness and fear are unsurprisingly present considering the sensitive subject matter of the article 
