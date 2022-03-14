@@ -15,12 +15,12 @@ output:
 
 #### Summary 
 
-In 2018, Michelle Zauner wrote an essay for the New Yorker about her connections with the Korean supermarket, H Mart, to her late mother. This piece later turned into a full-book that debuted on the The New York Times nonfiction best-seller list. Text analysis will be performed on the original New Yorker article to find the most common words in this article to be put into a word cloud. Furthermore, sentiment analysis will be done on the text using the NRC Emotion Lexicon. The NRC Emotion Lexicon is a list that associates English words to two sentiments (negative and positive) and eight basic emotions (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust). 
+In 2018, Michelle Zauner wrote an essay for *The New Yorker* about her connections with the Korean supermarket, H Mart, to her late mother. This piece titled "Crying in H Mart" later turned into a full book that debuted on the *The New York Times* nonfiction best-seller list. Text analysis will be performed on the original *New Yorker* article to find the most common words in this article to be put into a word cloud. Furthermore, sentiment analysis will be done on the text using the NRC Emotion Lexicon. The NRC Emotion Lexicon is a list that associates English words to two sentiments (negative and positive) and eight basic emotions (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust). 
 
 ![*Crying in H Mart, 2018.* Illustration by Andrea Mongia](hmart.jpg){width=80%}
 
 #### Citation
-Zauner, M. (2018, August 20). Crying in H Mart. The New Yorker. Retrieved March 6, 2022, from https://www.newyorker.com/culture/culture-desk/crying-in-h-mart 
+Zauner, M. (2018, August 20). Crying in H Mart. *The New Yorker*. Retrieved March 6, 2022, from https://www.newyorker.com/culture/culture-desk/crying-in-h-mart 
 
 ## Setup
 ```{r setup, include = TRUE, message = FALSE, warning = FALSE, class.source = 'fold-show'}
@@ -51,7 +51,7 @@ hmart_lines <- data.frame(hmart_text) %>%
 ```
 
 ```{r class.source = 'fold-show'}
-# Getting word counts and wrangling to eliminate stop words
+# Retrieving word counts and wrangling to get rid of stop words
 hmart_words <- hmart_lines %>% 
   unnest_tokens(word, full_text, token = 'words') %>% 
   select(-hmart_text) 
@@ -82,6 +82,8 @@ hmart_cloud <- ggplot(data = hmart_top100, aes(label = word)) +
 hmart_cloud
 ```
 
+***Figure 1.** Word cloud of the 100 most frequent words in the article, excluding stop words. Data: Zauner (2018).*
+
 **Takeaways:**
 
 - The most common word found in the article was "Korean", showing the emphasis on Korean culture linked between Zauner's Korean mother, Korean food, and the Korean supermarket, H Mart
@@ -91,6 +93,7 @@ hmart_cloud
 ## Sentiment Analysis 
 
 ```{r}
+# Retrieving NRC sentiments and getting NRC sentiment word counts
 hmart_nrc <- hmart_words_clean %>% 
   inner_join(get_sentiments('nrc'))
 
@@ -98,6 +101,7 @@ hmart_nrc_counts <- hmart_nrc %>%
   count(sentiment) %>% 
   arrange(-n) 
 
+# Plotting the results of NRC sentiment analysis
 ggplot(hmart_nrc_counts, 
        aes(x = fct_reorder(sentiment, n), y = n, fill = n)) +
   geom_col() +
@@ -107,6 +111,8 @@ ggplot(hmart_nrc_counts,
   theme(legend.position = "none") +
   labs(x = "Sentiment", y = "Count")
 ```
+
+***Figure 2.** Counts of words associated with two sentiments (negative and positive) and eight basic emotions (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust) based on the NRC Emotion Lexicon. Data: Zauner (2018).*
 
 **Takeaways:**
 

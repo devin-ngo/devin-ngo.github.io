@@ -2405,7 +2405,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 <a href="../../index.html">Home</a>
 <a href="../../about.html">About Me</a>
 <a href="../../blog.html">Blog</a>
-<a href="../../resume.pdf">CV</a>
+<a href="../../resume.pdf">Resume</a>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
 </nav>
@@ -2430,12 +2430,12 @@ d-appendix d-footnote-list a.footnote-backlink {
 <div class="d-article">
 <h2 id="overview">Overview</h2>
 <h4 id="summary">Summary</h4>
-<p>In 2018, Michelle Zauner wrote an essay for the New Yorker about her connections with the Korean supermarket, H Mart, to her late mother. This piece later turned into a full-book that debuted on the The New York Times nonfiction best-seller list. Text analysis will be performed on the original New Yorker article to find the most common words in this article to be put into a word cloud. Furthermore, sentiment analysis will be done on the text using the NRC Emotion Lexicon. The NRC Emotion Lexicon is a list that associates English words to two sentiments (negative and positive) and eight basic emotions (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust).</p>
+<p>In 2018, Michelle Zauner wrote an essay for <em>The New Yorker</em> about her connections with the Korean supermarket, H Mart, to her late mother. This piece titled “Crying in H Mart” later turned into a full book that debuted on the <em>The New York Times</em> nonfiction best-seller list. Text analysis will be performed on the original <em>New Yorker</em> article to find the most common words in this article to be put into a word cloud. Furthermore, sentiment analysis will be done on the text using the NRC Emotion Lexicon. The NRC Emotion Lexicon is a list that associates English words to two sentiments (negative and positive) and eight basic emotions (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust).</p>
 <figure>
 <img src="hmart.jpg" style="width:80.0%" alt="Crying in H Mart, 2018. Illustration by Andrea Mongia" /><figcaption aria-hidden="true"><em>Crying in H Mart, 2018.</em> Illustration by Andrea Mongia</figcaption>
 </figure>
 <h4 id="citation">Citation</h4>
-<p>Zauner, M. (2018, August 20). Crying in H Mart. The New Yorker. Retrieved March 6, 2022, from <a href="https://www.newyorker.com/culture/culture-desk/crying-in-h-mart" class="uri">https://www.newyorker.com/culture/culture-desk/crying-in-h-mart</a></p>
+<p>Zauner, M. (2018, August 20). Crying in H Mart. <em>The New Yorker</em>. Retrieved March 6, 2022, from <a href="https://www.newyorker.com/culture/culture-desk/crying-in-h-mart" class="uri">https://www.newyorker.com/culture/culture-desk/crying-in-h-mart</a></p>
 <h2 id="setup">Setup</h2>
 <div class="layout-chunk" data-layout="l-body">
 <details>
@@ -2490,7 +2490,7 @@ Show Code
 Show Code
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Getting word counts and wrangling to eliminate stop words</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Retrieving word counts and wrangling to get rid of stop words</span>
 <span class='va'>hmart_words</span> <span class='op'>&lt;-</span> <span class='va'>hmart_lines</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://rdrr.io/pkg/tidytext/man/unnest_tokens.html'>unnest_tokens</a></span><span class='op'>(</span><span class='va'>word</span>, <span class='va'>full_text</span>, token <span class='op'>=</span> <span class='st'>'words'</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>hmart_text</span><span class='op'>)</span> 
@@ -2530,6 +2530,7 @@ Show Code
 </details>
 <p><img src="textanalysis_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
 </div>
+<p><em><strong>Figure 1.</strong> Word cloud of the 100 most frequent words in the article, excluding stop words. Data: Zauner (2018).</em></p>
 <p><strong>Takeaways:</strong></p>
 <ul>
 <li>The most common word found in the article was “Korean”, showing the emphasis on Korean culture linked between Zauner’s Korean mother, Korean food, and the Korean supermarket, H Mart</li>
@@ -2543,13 +2544,15 @@ Show Code
 Show Code
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>hmart_nrc</span> <span class='op'>&lt;-</span> <span class='va'>hmart_words_clean</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Retrieving NRC sentiments and getting NRC sentiment word counts</span>
+<span class='va'>hmart_nrc</span> <span class='op'>&lt;-</span> <span class='va'>hmart_words_clean</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>inner_join</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/tidytext/man/get_sentiments.html'>get_sentiments</a></span><span class='op'>(</span><span class='st'>'nrc'</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='va'>hmart_nrc_counts</span> <span class='op'>&lt;-</span> <span class='va'>hmart_nrc</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>sentiment</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>n</span><span class='op'>)</span> 
 
+<span class='co'># Plotting the results of NRC sentiment analysis</span>
 <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>hmart_nrc_counts</span>, 
        <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://forcats.tidyverse.org/reference/fct_reorder.html'>fct_reorder</a></span><span class='op'>(</span><span class='va'>sentiment</span>, <span class='va'>n</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='va'>n</span>, fill <span class='op'>=</span> <span class='va'>n</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
@@ -2563,6 +2566,7 @@ Show Code
 </details>
 <p><img src="textanalysis_files/figure-html5/unnamed-chunk-5-1.png" width="624" /></p>
 </div>
+<p><em><strong>Figure 2.</strong> Counts of words associated with two sentiments (negative and positive) and eight basic emotions (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust) based on the NRC Emotion Lexicon. Data: Zauner (2018).</em></p>
 <p><strong>Takeaways:</strong></p>
 <ul>
 <li>Despite the article dealing with grief, there were more counts of words with positive associations than negative. This possibly correlates with Zauner’s fond memories of her mother being more present in the article rather than discussing her mother’s death</li>
